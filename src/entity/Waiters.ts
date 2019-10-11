@@ -1,8 +1,8 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable, BaseEntity } from "typeorm";
 import { Shifts } from "./Shifts";
 
 @Entity()
-export class Waiters {
+export class Waiters extends BaseEntity {
 
     @PrimaryGeneratedColumn()
     id: number;

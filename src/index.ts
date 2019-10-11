@@ -3,7 +3,15 @@ import { createConnection } from "typeorm";
 import { WaiterService } from "./waiter-service";
 
 createConnection().then(async connection => {
-    const waiterService = new WaiterService(connection);
+    const waiterService = new WaiterService();
+
+    console.log("clearing weekday table");
+    await waiterService.clearWeekdayTable();
+    console.log('---------------------------------');
+
+    console.log("clearing waiters table");
+    await waiterService.clearWaitersTable();
+    console.log('---------------------------------');
 
     console.log("Loading waiters into Database");
     await waiterService.addWaiter('Dyllan', 'Hope', '123');
@@ -11,9 +19,11 @@ createConnection().then(async connection => {
     await waiterService.addWaiter('Siri', 'Apple', '123');
     await waiterService.addWaiter('Vuyo', 'Matu', '123');
     console.log('---------------------------------');
+
     console.log("Loading weekdays into Database")
     await waiterService.loadWeekdays();
     console.log('---------------------------------');
+
     console.log("Shifting all the loaded waiters");
     await waiterService.shiftWaiter("Dyllan",["Monday","Tuesday","Friday"]);
     await waiterService.shiftWaiter("John",["Monday","Wednesday","Friday"]);
