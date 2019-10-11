@@ -13,7 +13,7 @@ describe('Waiter shift app with TypeORM tests', async () => {
             "synchronize": true,
             "logging": false,
             "entities": [
-                "src/models/**/*.ts"
+                "src/entity/**/*.ts"
             ],
         });
         await Waiters.delete({});
@@ -21,29 +21,29 @@ describe('Waiter shift app with TypeORM tests', async () => {
     });
     describe('Testing adding new waiters to Database', () => {
         it('Should return that Dyllan is loaded into the waiters Database', async () => {
-                const waiterService = new WaiterService();
-                await waiterService.clearWeekdayTable();
-                await waiterService.clearWaitersTable();
-                await waiterService.loadWeekdays();
+            const waiterService = new WaiterService();
+            await waiterService.clearWeekdayTable();
+            await waiterService.clearWaitersTable();
+            await waiterService.loadWeekdays();
 
-                await waiterService.addWaiter('Dyllan', 'Hope', '123');
+            await waiterService.addWaiter('Dyllan', 'Hope', '123');
 
-                const results = await Waiters.find();
-                assert.equal(results[0].firstName, "Dyllan");
+            const results = await Waiters.find();
+            assert.equal(results[0].firstName, "Dyllan");
         })
 
         it('Should return that Dyllan & John were both loaded into the waiters Database', async () => {
-                const waiterService = new WaiterService();
-                await waiterService.clearWeekdayTable();
-                await waiterService.clearWaitersTable();
-                await waiterService.loadWeekdays();
+            const waiterService = new WaiterService();
+            await waiterService.clearWeekdayTable();
+            await waiterService.clearWaitersTable();
+            await waiterService.loadWeekdays();
 
-                await waiterService.addWaiter('John', 'Hope', '123');
-                await waiterService.addWaiter('Mike', 'Dollman', '123');
+            await waiterService.addWaiter('John', 'Hope', '123');
+            await waiterService.addWaiter('Mike', 'Dollman', '123');
 
-                const results = await Waiters.find();
-                assert.equal(results[0].firstName, "John");
-                assert.equal(results[1].firstName, "Mike");
+            const results = await Waiters.find();
+            assert.equal(results[0].firstName, "John");
+            assert.equal(results[1].firstName, "Mike");
         })
     })
 });
