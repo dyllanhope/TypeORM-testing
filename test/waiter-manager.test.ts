@@ -7,7 +7,15 @@ import { Shifts } from '../src/entity/Shifts';
 
 describe('Waiter shift app with TypeORM tests', async () => {
     before(async function () {
-        await createConnection();
+        await createConnection({
+            "type": "postgres",
+            "database": "waiter_shifts",
+            "synchronize": true,
+            "logging": false,
+            "entities": [
+                "src/models/**/*.ts"
+            ],
+        });
         await Waiters.delete({});
         await Shifts.delete({});
     });
