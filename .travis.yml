@@ -9,7 +9,6 @@ node_js:
 before_script:
   - sudo cp /etc/postgresql/9.4/main/pg_hba.conf /etc/postgresql/9.5/main/pg_hba.conf
   - sudo /etc/init.d/postgresql restart
-  - psql -c 'create database  waiter_shifts;' -U postgres
 
 addons:
   apt:
