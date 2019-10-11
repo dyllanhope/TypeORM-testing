@@ -1,4 +1,4 @@
-# Awesome Project Build with TypeORM
+# Waiter webapp with TypeORM & TypeScript
 
 Steps to run this project:
 
