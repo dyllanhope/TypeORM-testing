@@ -1,4 +1,5 @@
-import {Entity, PrimaryGeneratedColumn, Column} from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable } from "typeorm";
+import { Shifts } from "./Shifts";
 
 @Entity()
 export class Waiters {
@@ -14,5 +15,9 @@ export class Waiters {
 
     @Column()
     password: string;
+
+    @ManyToMany(type => Shifts, shift => shift.waiters_on_day)
+    @JoinTable()
+    days: Shifts[]
 
 }

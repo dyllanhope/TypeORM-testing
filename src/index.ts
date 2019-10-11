@@ -1,35 +1,27 @@
 import "reflect-metadata";
 import { createConnection } from "typeorm";
-import { Waiters } from "./entity/Waiters";
-import { Shifts } from "./entity/Shifts";
+import { WaiterService } from "./waiter-service";
 
 createConnection().then(async connection => {
-    const weekdays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-    console.log("Inserting a new user into the database...");
+    const waiterService = new WaiterService(connection);
 
-    for (let i = 0; i < 5; i++) {
-        const user = new Waiters();
-        user.firstName = "Timber" + i;
-        user.lastName = "Saw";
-        user.password = `${i}23`;
-        await connection.manager.save(user);
-        console.log("Saved a new user with id: " + user.id);
-    };
+    console.log("Loading waiters into Database");
+    await waiterService.addWaiter('Dyllan', 'Hope', '123');
+    await waiterService.addWaiter('John', 'Hope', '123');
+    await waiterService.addWaiter('Siri', 'Apple', '123');
+    await waiterService.addWaiter('Vuyo', 'Matu', '123');
+    console.log('---------------------------------');
+    console.log("Loading weekdays into Database")
+    await waiterService.loadWeekdays();
+    console.log('---------------------------------');
+    console.log("Shifting all the loaded waiters");
+    await waiterService.shiftWaiter("Dyllan",["Monday","Tuesday","Friday"]);
+    await waiterService.shiftWaiter("John",["Monday","Wednesday","Friday"]);
+    await waiterService.shiftWaiter("Siri",["Monday","Thursday","Saturday"]);
+    await waiterService.shiftWaiter("Vuyo",["Wednesday","Thursday","Sunday"]);
+    console.log('---------------------------------');
 
-    for (const day of weekdays){
-        const shifts = new Shifts();
-        shifts.weekday = day;
-        shifts.waiters_on_day = 1;
-        await connection.manager.save(shifts);
-    };
-
-    console.log("Loading users from the database...");
-    const shifts = await connection.manager.find(Shifts);
-    const users = await connection.manager.find(Waiters);
-    console.log("Loaded users: ", users);
-    console.log("Loaded shifts: ", shifts);
-
-
-    console.log("Here you can setup and run express/koa/any other framework.");
+    console.log("Dyllan's shifts: ",await waiterService.displayShiftsForWaiter("Dyllan"));
+    console.log("Wednesday's waiters: ",await waiterService.displayWaitersForShift("Wednesday"));
 
 }).catch(error => console.log(error));

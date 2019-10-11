@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToMany } from "typeorm";
+import { Waiters } from "./Waiters";
 
 @Entity()
 export class Shifts {
@@ -9,6 +10,6 @@ export class Shifts {
     @Column()
     weekday: string;
 
-    @Column()
-    waiters_on_day: number;
+    @ManyToMany(type => Waiters, waiters => waiters.days)
+    waiters_on_day: Waiters[];
 }
