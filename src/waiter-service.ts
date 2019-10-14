@@ -35,9 +35,11 @@ export class WaiterService {
         const shifts = [];
         const waiter_shifts = await Waiters
             .findOne({ firstName: firstName }, { relations: ["days"] });
-        if (waiter_shifts.days.length > 0) {
-            for (const day of waiter_shifts.days) {
-                shifts.push(day.weekday);
+        if (waiter_shifts) {
+            if (waiter_shifts.days.length > 0) {
+                for (const day of waiter_shifts.days) {
+                    shifts.push(day.weekday);
+                }
             }
         }
         return shifts;

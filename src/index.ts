@@ -1,18 +1,18 @@
 import express from "express";
 import bodyParser from "body-parser";
-
+import AppRouting from "./AppRouting";
 import "reflect-metadata";
 import { createConnection } from "typeorm";
-import { WaiterService } from "./waiter-service";
-import { resolve } from "dns";
 
 const app = express();
+const appRouting = new AppRouting(app);
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.get('/', (req, res) => {
-    res.send('hey dude.')
-});
+createConnection().then(async connection => {
+    appRouting.routes();
+}).catch(error => console.log(error));
 
 
 var PORT = process.env.PORT || 3000;
@@ -20,6 +20,3 @@ var PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log('App started on port:', PORT);
 });
-// createConnection().then(async connection => {
-
-// }).catch(error => console.log(error));

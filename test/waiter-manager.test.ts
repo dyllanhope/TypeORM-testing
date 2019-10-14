@@ -70,7 +70,7 @@ describe('Waiter shift app with TypeORM service tests', async () => {
 
             await waiterService.shiftWaiter('John', ['Monday', 'Thursday', 'Saturday']);
             await waiterService.shiftWaiter('Dyllan', ['Monday', 'Wednesday', 'Friday']);
-            assert.deepEqual(await waiterService.displayWaitersForShift("Monday"), ['John', 'Dyllan']);
+            assert.deepEqual(await waiterService.displayWaitersForShift("Monday"), ['Dyllan', 'John']);
         })
     })
 });
