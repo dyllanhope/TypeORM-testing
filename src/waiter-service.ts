@@ -4,11 +4,14 @@ import { Shifts } from "./entity/Shifts";
 export class WaiterService {
 
     async addWaiter(firstname: string, lastName: string, password: string) {
-        const user = new Waiters();
-        user.firstName = firstname;
-        user.lastName = lastName;
-        user.password = password;
-        await Waiters.save(user);
+        const checkUser = await Waiters.findOne({ firstName: firstname });
+        if (checkUser === undefined) {
+            const user = new Waiters();
+            user.firstName = firstname;
+            user.lastName = lastName;
+            user.password = password;
+            await Waiters.save(user);
+        }
     };
 
     async loadWeekdays() {

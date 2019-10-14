@@ -9,8 +9,8 @@ describe('Waiter shift app with TypeORM service tests', async () => {
     before(async function () {
         await createConnection({
             "type": "postgres",
-            // "username": "coder",
-            // "password": "pg123",
+            "username": "coder",
+            "password": "pg123",
             "database": "waiter_shifts",
             "synchronize": true,
             "logging": false,
@@ -67,10 +67,11 @@ describe('Waiter shift app with TypeORM service tests', async () => {
 
             await waiterService.addWaiter('Dyllan', 'Hope', '123');
             await waiterService.addWaiter('John', 'Hope', '123');
+            await waiterService.addWaiter('John', 'Hope', '123');
 
             await waiterService.shiftWaiter('John', ['Monday', 'Thursday', 'Saturday']);
             await waiterService.shiftWaiter('Dyllan', ['Monday', 'Wednesday', 'Friday']);
-            assert.deepEqual(await waiterService.displayWaitersForShift("Monday"), ['Dyllan', 'John']);
+            assert.deepEqual(await waiterService.displayWaitersForShift("Monday"), ['John', 'Dyllan']);
         })
     })
 });
