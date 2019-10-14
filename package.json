@@ -1,7 +1,7 @@
 {
-   "name": "Waiter-manager",
+   "name": "waiter-manager",
    "version": "0.0.1",
-   "description": "Awesome project developed with TypeORM.",
+   "description": "Waiter manager app with TypeScript & TypeORM.",
    "devDependencies": {
       "@types/mocha": "^5.2.7",
       "mocha": "^6.2.1",
