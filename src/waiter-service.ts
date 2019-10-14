@@ -24,6 +24,7 @@ export class WaiterService {
         const dayList = [];
         let waiterToUpdate = await Waiters.findOne({ firstName: firstName });
         for (const day of days) {
+            console.log(day)
             const inputShift = await Shifts.findOne({ weekday: day });
             dayList.push(inputShift);
         }

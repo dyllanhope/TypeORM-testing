@@ -11,7 +11,7 @@ export default class AppRouting {
         this.app.get('/', waiterManagerAPI.index);
         this.app.post('/api/add/waiter', waiterManagerAPI.addWaiter);
         this.app.post('/api/shift/waiter', waiterManagerAPI.shiftWaiter);
-        this.app.get('/api/shifts/for/waiter', waiterManagerAPI.displayShiftsForWaiter);
-        this.app.get('/api/waiter/for/shifts', waiterManagerAPI.displayWaitersForShift);
+        this.app.get('/api/shifts/for/waiter/:user', waiterManagerAPI.displayShiftsForWaiter);
+        this.app.get('/api/waiters/for/shift/:day', waiterManagerAPI.displayWaitersForShift);
     }
 }

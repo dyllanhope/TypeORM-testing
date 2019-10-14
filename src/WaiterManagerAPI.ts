@@ -7,7 +7,6 @@ export default class WaiterManagerAPI {
     async addWaiter(req, res) {
         try {
             const details = req.body;
-            console.log(details);
             await waiterService.addWaiter(details.first, details.last, details.pass);
             res.json({
                 status: 'success'
