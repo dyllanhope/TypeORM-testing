@@ -11,10 +11,12 @@
       "typescript": "3.3.3333"
    },
    "dependencies": {
-      "typeorm": "0.2.19",
-      "reflect-metadata": "^0.1.10",
       "@types/pg": "^7.11.2",
-      "pg": "^7.3.0"
+      "body-parser": "^1.19.0",
+      "express": "^4.17.1",
+      "pg": "^7.3.0",
+      "reflect-metadata": "^0.1.10",
+      "typeorm": "0.2.19"
    },
    "scripts": {
       "test": "ts-mocha test/*.ts",

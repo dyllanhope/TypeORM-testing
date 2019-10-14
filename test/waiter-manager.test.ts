@@ -9,8 +9,8 @@ describe('Waiter shift app with TypeORM service tests', async () => {
     before(async function () {
         await createConnection({
             "type": "postgres",
-            "username": "coder",
-            "password": "pg123",
+            // "username": "coder",
+            // "password": "pg123",
             "database": "waiter_shifts",
             "synchronize": true,
             "logging": false,

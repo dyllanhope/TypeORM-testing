@@ -1,37 +1,25 @@
+import express from "express";
+import bodyParser from "body-parser";
+
 import "reflect-metadata";
 import { createConnection } from "typeorm";
 import { WaiterService } from "./waiter-service";
+import { resolve } from "dns";
 
-createConnection().then(async connection => {
-    const waiterService = new WaiterService();
+const app = express();
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
-    console.log("clearing weekday table");
-    await waiterService.clearWeekdayTable();
-    console.log('---------------------------------');
+app.get('/', (req, res) => {
+    res.send('hey dude.')
+});
 
-    console.log("clearing waiters table");
-    await waiterService.clearWaitersTable();
-    console.log('---------------------------------');
 
-    console.log("Loading waiters into Database");
-    await waiterService.addWaiter('Dyllan', 'Hope', '123');
-    await waiterService.addWaiter('John', 'Hope', '123');
-    await waiterService.addWaiter('Siri', 'Apple', '123');
-    await waiterService.addWaiter('Vuyo', 'Matu', '123');
-    console.log('---------------------------------');
+var PORT = process.env.PORT || 3000;
 
-    console.log("Loading weekdays into Database")
-    await waiterService.loadWeekdays();
-    console.log('---------------------------------');
+app.listen(PORT, () => {
+    console.log('App started on port:', PORT);
+});
+// createConnection().then(async connection => {
 
-    console.log("Shifting all the loaded waiters");
-    await waiterService.shiftWaiter("Dyllan",["Monday","Tuesday","Friday"]);
-    await waiterService.shiftWaiter("John",["Monday","Wednesday","Friday"]);
-    await waiterService.shiftWaiter("Siri",["Monday","Thursday","Saturday"]);
-    await waiterService.shiftWaiter("Vuyo",["Wednesday","Thursday","Sunday"]);
-    console.log('---------------------------------');
-
-    console.log("Dyllan's shifts: ",await waiterService.displayShiftsForWaiter("Dyllan"));
-    console.log("Wednesday's waiters: ",await waiterService.displayWaitersForShift("Wednesday"));
-
-}).catch(error => console.log(error));
+// }).catch(error => console.log(error));
