@@ -25,9 +25,10 @@ const appRouting = new AppRouting(app);
 createConnection({
     type: 'postgres',
     url: process.env.DATABASE_URL || 'postgres://coder:pg123@localhost/waiter_shifts',
+    synchronize: true,
     entities: [
         "build/src/entity/**/*.js"
-     ]
+    ]
 }).then(async connection => {
     appRouting.routes();
 }).catch(error => console.log(error));
