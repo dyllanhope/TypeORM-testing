@@ -3,12 +3,24 @@ import bodyParser from "body-parser";
 import AppRouting from "./AppRouting";
 import "reflect-metadata";
 import { createConnection } from "typeorm";
+import exphbs from "express-handlebars";
 
 const app = express();
-const appRouting = new AppRouting(app);
+const handlebarSetup = exphbs({
+    partialsDir: './views',
+    viewPath: './views',
+    layoutsDir: './views/layouts'
+});
+
+app.engine('handlebars', handlebarSetup);
+app.set('view engine', 'handlebars');
+
+app.use(express.static('public'));
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+const appRouting = new AppRouting(app);
+
 
 createConnection().then(async connection => {
     appRouting.routes();

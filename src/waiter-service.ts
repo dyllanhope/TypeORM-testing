@@ -14,6 +14,11 @@ export class WaiterService {
         }
     };
 
+    async users() {
+        let allUsers = await Waiters.find();
+        return allUsers;
+    }
+
     async loadWeekdays() {
         const weekdays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
         for (const day of weekdays) {
@@ -66,5 +71,25 @@ export class WaiterService {
 
     async clearWeekdayTable() {
         await Shifts.delete({});
+    }
+
+    async displayAllData() {
+        const data = [];
+        const waiter_shifts = await Waiters
+            .find({ relations: ['days'] });
+        if (waiter_shifts) {
+            if (waiter_shifts.length > 0) {
+                for (const waiter of waiter_shifts) {
+                    const user = { id: waiter.id, firstName: waiter.firstName, lastName: waiter.lastName, password: waiter.password, days: [] }
+                    if (waiter.days.length > 0) {
+                        for (const day of waiter.days) {
+                            user.days.push(day.weekday);
+                        }
+                    }
+                    data.push(user);
+                }
+            }
+        }
+        return data;
     }
 }

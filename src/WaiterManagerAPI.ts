@@ -1,8 +1,24 @@
 import { WaiterService } from "./waiter-service";
-const waiterService = new WaiterService;
+import { resolve } from "url";
+const waiterService = new WaiterService();
+
 export default class WaiterManagerAPI {
     index(req, res) {
-        res.send('hey dude.')
+        res.render('index');
+    }
+    async displayUsers(req,res){
+        try{
+            res.json({
+                status: 'success',
+                users: await waiterService.users()
+            });
+        }catch(err){
+            console.log(err.stack);
+            res.json({
+                status: 'failed',
+                error: err.stack
+            });
+        }
     }
     async addWaiter(req, res) {
         try {
@@ -12,6 +28,7 @@ export default class WaiterManagerAPI {
                 status: 'success'
             });
         } catch (err) {
+            console.log(err.stack);
             res.json({
                 status: 'failed',
                 error: err.stack
@@ -21,17 +38,34 @@ export default class WaiterManagerAPI {
     async shiftWaiter(req, res) {
         try {
             const shifts = req.body;
+            console.log(shifts.shifts)
             await waiterService.shiftWaiter(shifts.user, shifts.shifts);
             res.json({
                 status: 'success'
             });
         } catch (err) {
+            console.log(err.stack);
             res.json({
                 status: 'failed',
                 error: err.stack
             });
         }
     }
+    async displayAllData (req,res) {
+        try{
+            res.json({
+                status: 'success',
+                data: await waiterService.displayAllData()
+            });
+        }catch(err){
+            console.log(err.stack);
+            res.json({
+                status: 'failed',
+                error: err.stack
+            });
+        }
+    };
+
     async displayShiftsForWaiter(req, res) {
         try {
             const waiter = req.params.user;
@@ -41,6 +75,7 @@ export default class WaiterManagerAPI {
                 shifts
             });
         } catch (err) {
+            console.log(err.stack);
             res.json({
                 status: 'failed',
                 error: err.stack
@@ -56,6 +91,7 @@ export default class WaiterManagerAPI {
                 waiters
             });
         } catch (err) {
+            console.log(err.stack);
             res.json({
                 status: 'failed',
                 error: err.stack
