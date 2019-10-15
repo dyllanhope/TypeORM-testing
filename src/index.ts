@@ -22,7 +22,13 @@ app.use(bodyParser.json());
 const appRouting = new AppRouting(app);
 
 
-createConnection().then(async connection => {
+createConnection({
+    type: 'postgres',
+    url: process.env.DATABASE_URL || 'postgres://coder:pg123@localhost/waiter_shifts',
+    entities: [
+        "build/src/entity/**/*.js"
+     ]
+}).then(async connection => {
     appRouting.routes();
 }).catch(error => console.log(error));
 
