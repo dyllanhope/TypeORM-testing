@@ -27,8 +27,8 @@ createConnection().then(async connection => {
 }).catch(error => console.log(error));
 
 
-var PORT = process.env.PORT || 3000;
+var PORT = process.env.PORT || 3001;
 
 app.listen(PORT, () => {
-    console.log('App started on port:', PORT);
+    console.log(`App started on port: ${PORT}`);
 });
