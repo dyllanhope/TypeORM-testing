@@ -35,11 +35,9 @@ export default class WaiterManagerAPI {
     async shiftWaiter(req, res) {
         try {
             let shifts = req.body;
-            console.log(shifts.shifts)
             if(typeof shifts.shifts === 'string') {
                 shifts.shifts = [shifts.shifts];
             }
-            console.log(shifts);
             await waiterService.shiftWaiter(shifts.user, shifts.shifts);
             res.render('success');
         } catch (err) {
