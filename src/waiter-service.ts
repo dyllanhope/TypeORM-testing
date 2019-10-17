@@ -20,6 +20,7 @@ export class WaiterService {
     }
 
     async loadWeekdays() {
+        await this.clearWeekdayTable();
         const weekdays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
         for (const day of weekdays) {
             const shifts = new Shifts();

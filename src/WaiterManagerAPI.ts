@@ -5,13 +5,13 @@ export default class WaiterManagerAPI {
     index(req, res) {
         res.render('index');
     }
-    async displayUsers(req,res){
-        try{
+    async displayUsers(req, res) {
+        try {
             res.json({
                 status: 'success',
                 users: await waiterService.users()
             });
-        }catch(err){
+        } catch (err) {
             console.log(err.stack);
             res.json({
                 status: 'failed',
@@ -50,13 +50,13 @@ export default class WaiterManagerAPI {
             });
         }
     }
-    async displayAllData (req,res) {
-        try{
+    async displayAllData(req, res) {
+        try {
             res.json({
                 status: 'success',
                 data: await waiterService.displayAllData()
             });
-        }catch(err){
+        } catch (err) {
             console.log(err.stack);
             res.json({
                 status: 'failed',
@@ -100,9 +100,20 @@ export default class WaiterManagerAPI {
     // clearWaiterTable() {
 
     // }
-    // loadWeekdays() {
-
-    // }
+    async loadWeekdays(req, res) {
+        try {
+            await waiterService.loadWeekdays();
+            res.json({
+                status: 'success'
+            });
+        } catch (err) {
+            console.log(err.stack);
+            res.json({
+                status: 'failed',
+                error: err.stack
+            });
+        }
+    }
     // clearWeekdayTable() {
 
     // }
