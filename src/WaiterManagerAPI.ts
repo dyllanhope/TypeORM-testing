@@ -114,6 +114,21 @@ export default class WaiterManagerAPI {
             });
         }
     }
+
+    async clearShifts(req, res) {
+        try {
+            await waiterService.clearShifts();
+            res.json({
+                status: 'success'
+            });
+        } catch (err) {
+            console.log(err.stack);
+            res.json({
+                status: 'failed',
+                error: err.stack
+            });
+        }
+    }
     // clearWeekdayTable() {
 
     // }

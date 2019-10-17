@@ -14,6 +14,7 @@ export default class AppRouting {
         this.app.get('/api/get/all/data', waiterManagerAPI.displayAllData);
         this.app.post('/api/add/waiter', waiterManagerAPI.addWaiter);
         this.app.post('/api/shift/waiter', waiterManagerAPI.shiftWaiter);
-        this.app.post('/api/load/wekdays', waiterManagerAPI.loadWeekdays);
+        this.app.post('/api/load/weekdays', waiterManagerAPI.loadWeekdays);
+        this.app.post('/api/clear/shifts',waiterManagerAPI.clearShifts);
     }
 }

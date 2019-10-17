@@ -29,6 +29,12 @@ export class WaiterService {
         };
     };
 
+    async clearShifts(){
+        let waiters = await Waiters.find();
+        console.log(waiters);
+        return;
+    };
+
     async shiftWaiter(firstName: string, days: Array<string>) {
         const dayList = [];
         let waiterToUpdate = await Waiters.findOne({ firstName: firstName });
