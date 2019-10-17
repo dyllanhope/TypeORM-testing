@@ -29,10 +29,20 @@ export class WaiterService {
         };
     };
 
-    async clearShifts(){
+    async clearShifts() {
         let waiters = await Waiters.find();
-        console.log(waiters);
-        return;
+        let waitersList = [];
+        for (const waiter of waiters) {
+            waitersList.push(waiter.id);
+        };
+        for (let i = 0; i < waitersList.length; i++) {
+            let waiter = await Waiters.findOne({id: waitersList[i]});
+            console.log('------------------------------------------------');
+            console.log(waiter)
+            console.log('------------------------------------------------');
+            waiter.days = [];
+            await Waiters.save(waiter);
+        }
     };
 
     async shiftWaiter(firstName: string, days: Array<string>) {
