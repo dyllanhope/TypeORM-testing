@@ -23,9 +23,7 @@ export default class WaiterManagerAPI {
         try {
             const details = req.body;
             await waiterService.addWaiter(details.first, details.last, details.pass);
-            res.json({
-                status: 'success'
-            });
+            res.render('success');
         } catch (err) {
             console.log(err.stack);
             res.json({
@@ -39,9 +37,7 @@ export default class WaiterManagerAPI {
             const shifts = req.body;
             console.log(shifts.shifts)
             await waiterService.shiftWaiter(shifts.user, shifts.shifts);
-            res.json({
-                status: 'success'
-            });
+            res.render('success');
         } catch (err) {
             console.log(err.stack);
             res.json({
@@ -103,9 +99,7 @@ export default class WaiterManagerAPI {
     async loadWeekdays(req, res) {
         try {
             await waiterService.loadWeekdays();
-            res.json({
-                status: 'success'
-            });
+            res.render('success');
         } catch (err) {
             console.log(err.stack);
             res.json({
@@ -118,9 +112,7 @@ export default class WaiterManagerAPI {
     async clearShifts(req, res) {
         try {
             await waiterService.clearShifts();
-            res.json({
-                status: 'success'
-            });
+            res.render('success');
         } catch (err) {
             console.log(err.stack);
             res.json({
