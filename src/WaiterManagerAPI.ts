@@ -1,5 +1,4 @@
 import { WaiterService } from "./waiter-service";
-import { resolve } from "url";
 const waiterService = new WaiterService();
 
 export default class WaiterManagerAPI {
