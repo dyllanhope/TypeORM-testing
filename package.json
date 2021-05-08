@@ -19,7 +19,7 @@
       "pg": "^7.3.0",
       "reflect-metadata": "^0.1.10",
       "supertest": "^4.0.2",
-      "typeorm": "0.2.19"
+      "typeorm": "0.2.25"
    },
    "scripts": {
       "test": "ts-mocha test/*.ts",
